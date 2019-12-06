@@ -8,3 +8,5 @@ yum check-update
 yum list installed
 
 yum list <name>
+
+sudo yum --showduplicates list 'tar.*'
