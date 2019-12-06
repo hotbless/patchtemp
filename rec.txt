@@ -1,0 +1,10 @@
+rpm -qa --queryformat "'%{NAME}' '%{EPOCH}' '%{VERSION}' '%{RELEASE}' '%{ARCH}' 'rpm'\n"
+
+change to:
+rpm -qa --queryformat "%-60{NAME} %-12{EPOCH} %-25{VERSION} %-35{RELEASE} %-8{ARCH}\n"
+
+yum check-update
+
+yum list installed
+
+yum list <name>
