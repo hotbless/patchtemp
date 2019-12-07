@@ -34,21 +34,20 @@ class TargetHost:
         finally:
             self.connect().close()
 
-    def installed_pkg_info(self):
+    def query_installed_pkg(self):
         # info = self.run_cmd(r'rpm -qa --queryformat "%-60{NAME} %-12{EPOCH} %-25{VERSION} %-35{RELEASE} %-8{ARCH}\n"')
         # info = self.run_cmd(r'rpm -qa --queryformat "%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{ARCH}\n"')
         info = self.run_cmd('rpm -qa --queryformat "%{NAME} %{VERSION}%{RELEASE} %{ARCH}\n"')
         info = str(info)
         if info:
-
             return info
         else:
             raise Exception('Get installed packages info failed !')
 
-    def installed_info_list(self):
+    def installed_pkg_list(self):
         chk_words = ['Command exited with status', "stdout", '(no stderr)']
         list_info = []
-        list_info = self.installed_pkg_info().split('\n')
+        list_info = self.query_installed_pkg().split('\n')
 
         if list_info:
             for chk_word in chk_words:
@@ -79,8 +78,8 @@ class TargetHost:
 
 if __name__ == "__main__":
     target_host = TargetHost()
-    install_val = target_host.installed_pkg_info()
-    list_val = target_host.installed_info_list()
+    install_val = target_host.query_installed_pkg()
+    list_val = target_host.installed_pkg_list()
     # update_val = target_host.update_pkg_info()
     # print(install_val)
     print(list_val)
