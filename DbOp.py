@@ -56,7 +56,7 @@ class DbOp:
             cur.close
             conn.close()
 
-    def insert_installedinfo_table(self, dict_pkgs):
+    def insert_installed_info(self, dict_pkgs):
         conn = self.connect_db()
         cur = conn.cursor()
         try:
@@ -73,7 +73,7 @@ class DbOp:
             cur.close
             conn.close()
 
-    def insert_updateinfo_table(self, dict_pkgs):
+    def insert_update_info(self, dict_pkgs):
         conn = self.connect_db()
         cur = conn.cursor()
         try:

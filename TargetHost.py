@@ -76,7 +76,7 @@ class TargetHost:
     def installed_info_into_db(self):
         pkg_info_list = self.query_installed_pkg()
         try:
-            self.db_inst.insert_installedinfo_table(pkg_info_list)
+            self.db_inst.insert_installed_info(pkg_info_list)
         except Exception as err:
             raise err("DB Operation Failed !")
 
@@ -116,7 +116,7 @@ class TargetHost:
     def update_info_into_db(self):
         update_info_list = self.update_pkg_info()
         try:
-            self.db_inst.insert_updateinfo_table(update_info_list)
+            self.db_inst.insert_update_info(update_info_list)
         except Exception as err:
             raise err("DB Operation Failed !")
 
