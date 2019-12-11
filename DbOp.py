@@ -23,9 +23,9 @@ class DbOp:
         try:
             create_tb_cmd = '''
             CREATE TABLE IF NOT EXISTS INSTALLED_INFO
-            (NAME TEXT PRIMARY KEY,
-            VERSION TEXT,
-            ARCH TEXT,
+            (NAME TEXT PRIMARY KEY NOT NULL,
+            VERSION TEXT NOT NULL,
+            ARCH TEXT NOT NULL,
             unique (NAME, VERSION));
             '''
             cur.execute(create_tb_cmd)
@@ -42,10 +42,10 @@ class DbOp:
         try:
             create_tb_cmd = '''
             CREATE TABLE IF NOT EXISTS UPDATE_INFO
-            (NAME TEXT PRIMARY KEY,
-            VERSION TEXT,
-            ARCH TEXT,
-            REPO TEXT,
+            (NAME TEXT PRIMARY KEY NOT NULL,
+            VERSION TEXT NOT NULL,
+            ARCH TEXT NOT NULL,
+            REPO TEXT NOT NULL,
             unique (NAME, VERSION));
             '''
             cur.execute(create_tb_cmd)
