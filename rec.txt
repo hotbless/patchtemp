@@ -10,3 +10,7 @@ yum list installed
 yum list <name>
 
 sudo yum --showduplicates list 'tar.*'
+
+repoquery -q -a --qf="%{name} %{version}-%{release}.%{arch} %{repoid}" --pkgnarrow=updates
+
+yum list updates| xargs -n3 | column -t

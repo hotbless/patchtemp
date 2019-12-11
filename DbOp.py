@@ -19,48 +19,79 @@ class DbOp:
 
     def create_installed_table(self):
         conn = self.connect_db()
-        c = conn.cursor()
+        cur = conn.cursor()
         try:
             create_tb_cmd = '''
-            CREATE TABLE IF NOT EXISTS INSTALLED
-            (NAME TEXT,
+            CREATE TABLE IF NOT EXISTS INSTALLED_INFO
+            (NAME TEXT PRIMARY KEY,
             VERSION TEXT,
-            ARCH TEXT);
+            ARCH TEXT,
+            unique (NAME, VERSION));
             '''
-            c.execute(create_tb_cmd)
+            cur.execute(create_tb_cmd)
             conn.commit()
         except Exception as err:
             raise err('Installed table operation failed !')
         finally:
-            c.close
+            cur.close
             conn.close()
 
-    def insert_installed_table(self, *args, **kwargs):
+    def create_update_table(self):
         conn = self.connect_db()
-        c = conn.cursor()
+        cur = conn.cursor()
         try:
-            insert_tb_cmd = '''
-                    CREATE TABLE IF NOT EXISTS INSTALLED
-                    (NAME TEXT,
-                    VERSION TEXT,
-                    ARCH TEXT);
-                    '''
-            values = {'title': 'jack', 'type': None, 'genre': 'Action', 'onchapter': None, 'chapters': 6,
-                      'status': 'Ongoing'}
-            cur.execute(
-                'INSERT INTO Media (id, title, type, onchapter, chapters, status) VALUES (:id, :title, :type, :onchapter, :chapters, :status);'), values)
-            c.execute(insert_tb_cmd)
+            create_tb_cmd = '''
+            CREATE TABLE IF NOT EXISTS UPDATE_INFO
+            (NAME TEXT PRIMARY KEY,
+            VERSION TEXT,
+            ARCH TEXT,
+            REPO TEXT,
+            unique (NAME, VERSION));
+            '''
+            cur.execute(create_tb_cmd)
             conn.commit()
         except Exception as err:
-            raise err('Installed table operation failed !')
+            raise err('Update table operation failed !')
         finally:
-            c.close
+            cur.close
             conn.close()
 
+    def insert_installedinfo_table(self, dict_pkgs):
+        conn = self.connect_db()
+        cur = conn.cursor()
+        try:
+            # cur.execute(
+            #     'INSERT OR REPLACE INTO INSTALLED (NAME, VERSION, ARCH) VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
+            # )
+            cur.executemany(
+                'INSERT OR REPLACE INTO INSTALLED_INFO VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
+            )
+        except Exception as err:
+            raise err('Insert table operation failed !')
+        finally:
+            conn.commit()
+            cur.close
+            conn.close()
 
-
-
+    def insert_updateinfo_table(self, dict_pkgs):
+        conn = self.connect_db()
+        cur = conn.cursor()
+        try:
+            # cur.execute(
+            #     'INSERT OR REPLACE INTO INSTALLED (NAME, VERSION, ARCH) VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
+            # )
+            cur.executemany(
+                'INSERT OR REPLACE INTO UPDATE_INFO VALUES (:NAME, :VERSION, :ARCH, :REPO)', dict_pkgs
+            )
+        except Exception as err:
+            raise err('Insert table operation failed !')
+        finally:
+            conn.commit()
+            cur.close
+            conn.close()
 
 
 if __name__ == "__main__":
-    DbOp().create_installed_table()
+    db = DbOp()
+    db.create_installed_table()
+    db.insert_installed_table()
