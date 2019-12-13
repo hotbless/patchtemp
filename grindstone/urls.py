@@ -16,7 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from installed.views import InstalledListView
+from update.views import UpdateInfoListView
+
+
 urlpatterns = [
-    path('installed/', include('installed.urls')),
+    # path('installed/', include('installed.urls')),
     path('admin/', admin.site.urls),
+    path("installed/", InstalledListView.as_view()),
+    path("update/", UpdateInfoListView.as_view())
 ]

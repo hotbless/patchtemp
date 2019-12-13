@@ -8,6 +8,6 @@ from . import views
 
 urlpatterns = [
     # path('', views.installed, name='installed'),
-    path('', views.InstalledListView, name='installed')
+    path('', views.UpdateInfoListView, name='update')
     # path("packages/", PackagesListView.as_view())
 ]

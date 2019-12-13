@@ -4,13 +4,18 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 from django.views.generic import ListView
-from .models import installed_info_sql
+from .models import InstalledInfo
+
+from django_tables2 import SingleTableView
+
+from .models import InstalledInfo
+from .tables import InstalledInfoTable
+
+# def installed(request):
+#     return HttpResponse("Host installed packages info page.")
 
 
-def installed(request):
-    return HttpResponse("Host installed packages info page.")
-
-
-class PackagesListView(ListView):
-    model = installed_info_sql()
-    template_name = 'installed/packages.html'
+class InstalledListView(SingleTableView):
+    model = InstalledInfo
+    table_class = InstalledInfoTable
+    template_name = 'installed/installed.html'
