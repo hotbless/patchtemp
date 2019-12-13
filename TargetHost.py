@@ -107,13 +107,12 @@ class TargetHost:
                         'ARCH': list_each[2],
                         'REPO': list_each[3]
                     }
-                    if dict_each['REPO'] != "base":
-                        dict_each.update({'DETAIL': 1})
-                    else:
-                        dict_each.update({'DETAIL': 0})
+                    # if dict_each['REPO'] != "base":
+                    #     dict_each.update({'DETAIL': 'More'})
+                    # else:
+                    #     dict_each.update({'DETAIL': 'Base'})
                     # print(dict_each)
                     list_info[index] = dict_each
-                    # self.db_inst.insert_installed_table(dict_each)
             # print(list_info)
             return list_info
         else:

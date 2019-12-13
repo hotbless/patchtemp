@@ -6,12 +6,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Packages update info</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" -->
+    <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+    <!-- link rel="stylesheet" href="{% static 'bootstrap.min.css' %}" type="text/css" / -->
     <!-- link rel="stylesheet" type="text/css" href="./main.css" -->
+    <style type="text/css">
+        table.paleblue tr.even {
+            background-color: white;
+        }
+        table.paleblue tr.odd {
+            background-color: #EDF3FE;
+        }
+    </style>
 </head>
 <body>
-    {% block content %}
-    {% endblock content %}
     {% render_table table %}
 </body>
 </html>

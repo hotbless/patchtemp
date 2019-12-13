@@ -10,7 +10,7 @@ class UpdateInfo(models.Model):
     VERSION = models.CharField(max_length=120, null=False, verbose_name="Version")
     ARCH = models.CharField(max_length=120, null=False, verbose_name="Arch")
     REPO = models.CharField(max_length=120, null=False, verbose_name="Repo")
-    DETAIL = models.BooleanField(null=True, default=True, verbose_name="Detail")
+    # DETAIL = models.CharField(max_length=120, null=False, default='base', verbose_name="Detail")
 
     # 指定database table name
     class Meta:
