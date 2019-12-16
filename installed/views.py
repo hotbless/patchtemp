@@ -4,11 +4,11 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 from django.views.generic import ListView
-from .models import InstalledInfo
+from targethost.models import InstalledInfo
 
 from django_tables2 import SingleTableView
 
-from .models import InstalledInfo
+from targethost.models import InstalledInfo
 from .tables import InstalledInfoTable
 
 # def installed(request):

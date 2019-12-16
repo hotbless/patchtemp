@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from .models import InstalledInfo
+from targethost.models import InstalledInfo
 
 
 class InstalledInfoTable(tables.Table):

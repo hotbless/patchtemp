@@ -8,13 +8,13 @@ from django.db import models
 import django_tables2 as tables
 
 
-class InstalledInfo(models.Model):
-    NAME = models.CharField(primary_key=True, max_length=120, null=False, verbose_name="Package Name")
-    VERSION = models.CharField(max_length=120, null=False, verbose_name="Version")
-    ARCH = models.CharField(max_length=120, null=False, verbose_name="Arch")
-
-    class Meta:
-        db_table = "installed_info"
+# class InstalledInfo(models.Model):
+#     NAME = models.CharField(primary_key=True, max_length=120, null=False, verbose_name="Package Name")
+#     VERSION = models.CharField(max_length=120, null=False, verbose_name="Version")
+#     ARCH = models.CharField(max_length=120, null=False, verbose_name="Arch")
+#
+#     class Meta:
+#         db_table = "installed_info"
 
 
 

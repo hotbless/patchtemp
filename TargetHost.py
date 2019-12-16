@@ -18,8 +18,8 @@ class TargetHost:
 
     def connect(self):
         connect = Connection(
-            host=self.target_host_ip,
-            # host='1.1.1.1',
+            # host=self.target_host_ip,
+            host='1.1.1.1',
             port=self.target_host_port,
             user=self.target_host_user,
             connect_kwargs={
@@ -27,19 +27,20 @@ class TargetHost:
             },
             connect_timeout=10
         )
-        status = False
-        try:
-            connect.open()
-        except Exception:
-            # raise TimeoutError("SSH connection failed !")
-            # status = False
-            raise Exception("SSH connection failed !")
-            status = False
-        else:
-            status = True
-        finally:
-            connect.close()
-            return connect, status
+        return connect
+        # status = False
+        # try:
+        #     connect.open()
+        # except Exception:
+        #     # raise TimeoutError("SSH connection failed !")
+        #     # status = False
+        #     raise Exception("SSH connection failed !")
+        #     status = False
+        # else:
+        #     status = True
+        # finally:
+        #     connect.close()
+        #     return connect, status
 
     # Deprecated
     def chk_connect(self, connect):
@@ -49,6 +50,15 @@ class TargetHost:
         try:
             result = self.connect().run(cmd, warn=warn)
             # result = connect.run(r'rpm -qa --queryformat "%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{ARCH}\n"')
+            return result
+        except Exception as err:
+            raise err("Command execution Failed !")
+        finally:
+            self.connect().close()
+
+    def test_cmd(self, warn=False):
+        try:
+            result = self.connect().run(r'rpm -qa --queryformat "%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{ARCH}\n"')
             return result
         except Exception as err:
             raise err("Command execution Failed !")
@@ -166,9 +176,13 @@ class TargetHost:
 
 if __name__ == "__main__":
     target_host = TargetHost()
-    connect_hdle, connect_status = target_host.connect()
-    print("connect is", connect_hdle)
-    print("Check connect: ", connect_status)
+    # connect_hdle, connect_status = target_host.connect()
+    # print("connect is", connect_hdle)
+    # print("Check connect: ", connect_status)
+    # test_hdle = target_host.connect()[0]
+    # print(test_hdle)
+    result = target_host.test_cmd()
+    print(result)
     # install_val = target_host.query_installed_pkg()
     # list_val = target_host.installed_pkg_list()
     # update_val = target_host.update_pkg_info()

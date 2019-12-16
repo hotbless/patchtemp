@@ -18,7 +18,8 @@ from django.urls import include, path
 
 from installed.views import InstalledListView
 from update.views import UpdateInfoListView
-# from sshtarget.views import SSHTarget
+from sshtarget.views import SSHTarget
+from targethost.views import TargetHost
 
 urlpatterns = [
     # path('installed/', include('installed.urls')),
@@ -26,6 +27,9 @@ urlpatterns = [
     path("installed/", InstalledListView.as_view()),
     path("update/", UpdateInfoListView.as_view()),
     path("restry/", include('restry.urls')),
-    # path("sshtarget/", SSHTarget.as_view())
-    path("ssh_target/", include('sshtarget.urls')),
+    path("sshtarget/", SSHTarget.as_view({'get': 'chk_host'})),
+    path("targethost/", TargetHost.as_view({'get': 'chk_host'})),
+    path("targethost/query", TargetHost.as_view({'get': 'query_installed'}))
+
+    # path("ssh_target/", include('sshtarget.urls')),
 ]

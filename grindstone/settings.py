@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'update.apps.UpdateConfig',
     'restry.apps.RestryConfig',
     'sshtarget.apps.SshtargetConfig',
+    'targethost.apps.TargethostConfig',
     "django_tables2",
     "rest_framework",
     'django.contrib.admin',

@@ -97,7 +97,7 @@ class TargetOp:
                         # self.db_inst.insert_installed_table(dict_each)
                 # print(list_info)
                 if list_info:
-                    print(list_info)
+                    # print(list_info)
                     return list_info
                 else:
                     raise Exception('Get installed packages info failed !')
@@ -116,16 +116,19 @@ class TargetOp:
 #         return HttpResponse("Can't access Target host", status=406)
 #     return Response({"message": "Connect Target Host Success "}, status=200)
 
-class SSHTarget(viewsets.ViewSet):
+
+class TargetHost(viewsets.ViewSet):
     def chk_host(self, request):
         status = TargetOp().chk_connect()
         if status is False:
-            return Response({"message": "Can't access Target host"}, status=406)
-        return Response({"message": "Connect Target host success 1"}, status=200)
+            return Response({"message": "Can't access Target host new class"}, status=406)
+        return Response({"message": "Connect Target host success new class"}, status=200)
 
     def query_installed(self, request):
         try:
             TargetOp().query_installed_pkg()
         except Exception as err:
-            return Response({"message": "Get"}, status=406)
+            return Response({"message": "Query installed packages information Failed ! "}, status=406)
+        else:
+            return Response({"message": "Query installed packages information Success ! "}, status=200)
 
