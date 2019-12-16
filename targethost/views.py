@@ -4,7 +4,7 @@ from django.views import View
 
 from fabric import Connection
 from GetConfig import GetConfig
-# from DbOp import DbOp
+from DbOp import DbOp
 
 from rest_framework.response import Response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
+
+from .models import InstalledInfo
 
 # Create your views here.
 
@@ -26,9 +28,9 @@ class TargetOp:
         self.target_host_port = self.target_host.get('port')
         self.target_host_user = self.target_host.get('user')
         self.target_host_pwd = self.target_host.get('pwd')
-        # self.db_inst = DbOp()
-        # self.db_inst.create_installed_table()
-        # self.db_inst.create_update_table()
+        self.db_inst = DbOp()
+        self.db_inst.create_installed_table()
+        self.db_inst.create_update_table()
 
     def connect(self):
         connect = Connection(
@@ -102,6 +104,14 @@ class TargetOp:
                 else:
                     raise Exception('Get installed packages info failed !')
 
+    def installed_info_into_db(self):
+        pkg_info_list = self.query_installed_pkg()
+        # print(pkg_info_list)
+        try:
+            self.db_inst.insert_installed_info(pkg_info_list)
+        except Exception as err:
+            raise err("DB Operation Failed !")
+
 # class SSHTarget(View):
     # def get(self, request):
     #     connect, status = ConnectTarget().connect()
@@ -118,6 +128,8 @@ class TargetOp:
 
 
 class TargetHost(viewsets.ViewSet):
+    model = InstalledInfo
+
     def chk_host(self, request):
         status = TargetOp().chk_connect()
         if status is False:
@@ -126,7 +138,7 @@ class TargetHost(viewsets.ViewSet):
 
     def query_installed(self, request):
         try:
-            TargetOp().query_installed_pkg()
+            TargetOp().installed_info_into_db()
         except Exception as err:
             return Response({"message": "Query installed packages information Failed ! "}, status=406)
         else:

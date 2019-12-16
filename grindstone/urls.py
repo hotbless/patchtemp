@@ -28,8 +28,9 @@ urlpatterns = [
     path("update/", UpdateInfoListView.as_view()),
     path("restry/", include('restry.urls')),
     path("sshtarget/", SSHTarget.as_view({'get': 'chk_host'})),
-    path("targethost/", TargetHost.as_view({'get': 'chk_host'})),
-    path("targethost/query", TargetHost.as_view({'get': 'query_installed'}))
+    # path("targethost/", TargetHost.as_view()),
+    path("targethost/check", TargetHost.as_view({'get': 'chk_host'})),
+    path("targethost/query", TargetHost.as_view({'get': 'query_installed'})),
 
     # path("ssh_target/", include('sshtarget.urls')),
 ]
