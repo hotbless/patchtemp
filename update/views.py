@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import ListView
-from .models import UpdateInfo
+from targethost.models import UpdateInfo
 
 from django_tables2 import SingleTableView
 from .tables import UpdateTable

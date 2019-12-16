@@ -1,6 +1,6 @@
 from django_tables2 import TemplateColumn
 import django_tables2 as tables
-from .models import UpdateInfo
+from targethost.models import UpdateInfo
 from update import views
 import itertools
 
