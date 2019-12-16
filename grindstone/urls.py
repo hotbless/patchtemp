@@ -18,11 +18,14 @@ from django.urls import include, path
 
 from installed.views import InstalledListView
 from update.views import UpdateInfoListView
-
+# from sshtarget.views import SSHTarget
 
 urlpatterns = [
     # path('installed/', include('installed.urls')),
     path('admin/', admin.site.urls),
     path("installed/", InstalledListView.as_view()),
-    path("update/", UpdateInfoListView.as_view())
+    path("update/", UpdateInfoListView.as_view()),
+    path("restry/", include('restry.urls')),
+    # path("sshtarget/", SSHTarget.as_view())
+    path("ssh_target/", include('sshtarget.urls')),
 ]

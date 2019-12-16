@@ -19,6 +19,7 @@ class TargetHost:
     def connect(self):
         connect = Connection(
             host=self.target_host_ip,
+            # host='1.1.1.1',
             port=self.target_host_port,
             user=self.target_host_user,
             connect_kwargs={
@@ -26,7 +27,23 @@ class TargetHost:
             },
             connect_timeout=10
         )
-        return connect
+        status = False
+        try:
+            connect.open()
+        except Exception:
+            # raise TimeoutError("SSH connection failed !")
+            # status = False
+            raise Exception("SSH connection failed !")
+            status = False
+        else:
+            status = True
+        finally:
+            connect.close()
+            return connect, status
+
+    # Deprecated
+    def chk_connect(self, connect):
+        return connect.is_connected
 
     def run_cmd(self, cmd, warn=False):
         try:
@@ -149,14 +166,17 @@ class TargetHost:
 
 if __name__ == "__main__":
     target_host = TargetHost()
+    connect_hdle, connect_status = target_host.connect()
+    print("connect is", connect_hdle)
+    print("Check connect: ", connect_status)
     # install_val = target_host.query_installed_pkg()
     # list_val = target_host.installed_pkg_list()
     # update_val = target_host.update_pkg_info()
     # print(install_val)
     # print(list_val)
-    target_host.query_installed_pkg()
-    target_host.installed_info_into_db()
-    target_host.update_info_into_db()
+    # target_host.query_installed_pkg()
+    # target_host.installed_info_into_db()
+    # target_host.update_info_into_db()
     # target_host.installed_info_into_db()
     # target_host.update_detail_info()
 

@@ -33,7 +33,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'installed.apps.InstalledConfig',
     'update.apps.UpdateConfig',
+    'restry.apps.RestryConfig',
+    'sshtarget.apps.SshtargetConfig',
     "django_tables2",
+    "rest_framework",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
