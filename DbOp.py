@@ -82,8 +82,26 @@ class DbOp:
             #     'INSERT OR REPLACE INTO INSTALLED (NAME, VERSION, ARCH) VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
             # )
             cur.executemany(
-                'INSERT OR REPLACE INTO UPDATE_INFO (NAME, VERSION, ARCH, REPO, DETAIL) '
-                'VALUES (:NAME, :VERSION, :ARCH, :REPO, :DETAIL)', dict_pkgs
+                'INSERT OR REPLACE INTO UPDATE_INFO (NAME, VERSION, ARCH, REPO) '
+                'VALUES (:NAME, :VERSION, :ARCH, :REPO)', dict_pkgs
+            )
+        except Exception as err:
+            raise err('Insert table operation failed !')
+        finally:
+            conn.commit()
+            cur.close
+            conn.close()
+
+    def insert_update_info_details(self, dict_pkgs):
+        conn = self.connect_db()
+        cur = conn.cursor()
+        try:
+            # cur.execute(
+            #     'INSERT OR REPLACE INTO INSTALLED (NAME, VERSION, ARCH) VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
+            # )
+            cur.executemany(
+                'INSERT OR REPLACE INTO UPDATE_INFO_DETAILS (NAME, VERSION, ARCH, REPO) '
+                'VALUES (:NAME, :VERSION, :ARCH, :REPO)', dict_pkgs
             )
         except Exception as err:
             raise err('Insert table operation failed !')

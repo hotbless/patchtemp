@@ -29,13 +29,14 @@ class UpdateInfo(models.Model):
         db_table = "update_info"
 
 
-class UpdateInfoDetail(models.Model):
-    NAME = models.CharField(primary_key=True, max_length=120, null=False, verbose_name="Package Name")
+class UpdateInfoDetails(models.Model):
+    NAME = models.CharField(max_length=120, null=False, verbose_name="Package Name")
     VERSION = models.CharField(max_length=120, null=False, verbose_name="Version")
     ARCH = models.CharField(max_length=120, null=False, verbose_name="Arch")
     REPO = models.CharField(max_length=120, null=False, verbose_name="Repo")
 
     class Meta:
+        unique_together = ('NAME', 'VERSION', 'ARCH', 'REPO',)
         db_table = "update_info_details"
 
 

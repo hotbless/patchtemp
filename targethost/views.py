@@ -41,7 +41,7 @@ class TargetOp:
             connect_kwargs={
                 "password": self.target_host_pwd,
             },
-            connect_timeout=10
+            connect_timeout=5
         )
         return connect
 

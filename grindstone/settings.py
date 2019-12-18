@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'sshtarget.apps.SshtargetConfig',
     'targethost.apps.TargethostConfig',
     "django_tables2",
+    "bootstrap4",
     "rest_framework",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -129,3 +130,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR + "/static"
 ]
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]

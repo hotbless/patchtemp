@@ -18,14 +18,14 @@ class TargetHost:
 
     def connect(self):
         connect = Connection(
-            # host=self.target_host_ip,
-            host='1.1.1.1',
+            host=self.target_host_ip,
+            # host='1.1.1.1',
             port=self.target_host_port,
             user=self.target_host_user,
             connect_kwargs={
                 "password": self.target_host_pwd,
             },
-            connect_timeout=10
+            connect_timeout=5
         )
         return connect
         # status = False
@@ -152,20 +152,49 @@ class TargetHost:
         except Exception as err:
             raise err("DB Operation Failed !")
 
-    def update_detail_info(self, pkg_name="SDL"):
+    def update_info_details(self, pkg_name="SDL"):
         chk_words = ['Command exited with status', "= stdout =", '(no stderr)']
         info = self.run_cmd(
             "repoquery -q --qf='%{name} %{version}-%{release} %{arch} %{repoid}' --show-duplicates " +
-                   "{_name}\n".format(_name=pkg_name), warn=True
+            "{_name}\n".format(_name=pkg_name), warn=True
         )
         list_info = str(info).split("\n")
-        print(list_info)
+        # print(list_info)
         for chk_word in chk_words:
             for each in list_info:
                 if chk_word in each:
                     list_info.remove(each)
         list_info = [each for each in list_info if each != '']
-        print(list_info)
+        if list_info:
+            for index, each in enumerate(list_info):
+                if each:
+                    # print(each)
+                    list_each = each.split()
+                    # print(list_each)
+                    dict_each = {
+                        'NAME': list_each[0],
+                        'VERSION': list_each[1],
+                        'ARCH': list_each[2],
+                        'REPO': list_each[3]
+                    }
+                    # if dict_each['REPO'] != "base":
+                    #     dict_each.update({'DETAIL': 'More'})
+                    # else:
+                    #     dict_each.update({'DETAIL': 'Base'})
+                    # print(dict_each)
+                    list_info[index] = dict_each
+            # print(list_info)
+            return list_info
+        else:
+            raise Exception('None Packages update detail information !')
+        # print(list_info)
+
+    def update_info_details_into_db(self):
+        update_info_list = self.update_info_details()
+        try:
+            self.db_inst.insert_update_info_details(update_info_list)
+        except Exception as err:
+            raise err("DB Operation Failed !")
 
 
 
@@ -181,8 +210,8 @@ if __name__ == "__main__":
     # print("Check connect: ", connect_status)
     # test_hdle = target_host.connect()[0]
     # print(test_hdle)
-    result = target_host.test_cmd()
-    print(result)
+    # result = target_host.test_cmd()
+    # print(result)
     # install_val = target_host.query_installed_pkg()
     # list_val = target_host.installed_pkg_list()
     # update_val = target_host.update_pkg_info()
@@ -190,7 +219,8 @@ if __name__ == "__main__":
     # print(list_val)
     # target_host.query_installed_pkg()
     # target_host.installed_info_into_db()
-    # target_host.update_info_into_db()
+    target_host.update_info_into_db()
     # target_host.installed_info_into_db()
-    # target_host.update_detail_info()
-
+    # update_detail = target_host.update_info_details()
+    # print(update_detail)
+    target_host.update_info_details_into_db()
