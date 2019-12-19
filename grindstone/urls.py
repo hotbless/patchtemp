@@ -20,6 +20,8 @@ from installed.views import InstalledListView
 from update.views import UpdateInfoListView
 from sshtarget.views import SSHTarget
 from targethost.views import TargetHost
+from update.views import SSHTargetButton
+from sshtarget.views import Login
 
 urlpatterns = [
     # path('installed/', include('installed.urls')),
@@ -31,6 +33,8 @@ urlpatterns = [
     # path("targethost/", TargetHost.as_view()),
     path("targethost/check", TargetHost.as_view({'get': 'chk_host'})),
     path("targethost/query", TargetHost.as_view({'get': 'query_installed'})),
+    path("sshtarget/trialtest", Login)
+    # path(r'^update/quest/$', SSHTarget.as_view({'post': 'request_page'})),
 
     # path("ssh_target/", include('sshtarget.urls')),
 ]

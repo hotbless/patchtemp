@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views import View
+from django.shortcuts import redirect
 
 from fabric import Connection
 from GetConfig import GetConfig
@@ -128,4 +129,12 @@ class SSHTarget(viewsets.ViewSet):
             TargetOp().query_installed_pkg()
         except Exception as err:
             return Response({"message": "Get"}, status=406)
+
+def Login(request):
+    username = 5
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        return HttpResponse(username)
+    else:
+        return render(request, 'sshtarget/trialtest.html')
 

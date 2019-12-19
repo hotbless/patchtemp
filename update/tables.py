@@ -13,17 +13,17 @@ import itertools
 #         template_name = "django_tables2/bootstrap.html"
 #         fields = ("NAME", "VERSION", "ARCH", "REPO")
 
-class CustomTemplateColumn(tables.TemplateColumn):
+class CustomTemplateColumnGetName(tables.TemplateColumn):
     def render(self, record, table, value, bound_column, **kwargs):
         if str(record.REPO) != "updates":
             return '------'
         else:
-            return super(CustomTemplateColumn, self).render(record, table, value, bound_column, **kwargs)
+            return super(CustomTemplateColumnGetName, self).render(record, table, value, bound_column, **kwargs)
 
 
-class SummingColumn(tables.Column):
-    def render_footer(self, bound_column, table):
-        return sum(bound_column.accessor.resolve(row) for row in table.data)
+# class SummingColumn(tables.Column):
+#     def render_footer(self, bound_column, table):
+#         return sum(bound_column.accessor.resolve(row) for row in table.data)
 
 
 class UpdateTable(tables.Table):
@@ -53,7 +53,7 @@ class UpdateTable(tables.Table):
 
 
     # if record.REPO != 'base':
-    Detail = CustomTemplateColumn(template_name="update/detail.html", orderable=False)
+    Detail = CustomTemplateColumnGetName(template_name="update/detail.html", orderable=False)
 
     # Collapse = tables.TemplateColumn(template_name="update/collapse.html", orderable=False)
     # def render_repo(self, value, record):

@@ -1,19 +1,39 @@
 {% load django_tables2 %}
 {% load i18n %}
 {% block table-wrapper %}
+
+<style type="text/css">
+    .hiddenRow {
+    padding: 0 !important;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<!--<script>-->
+<!--    $('.collapse').on('show.bs.collapse', function () {-->
+<!--    $('.collapse.in').collapse('hide');-->
+<!--});-->
+<!--</script>-->
+
+
+
+
 <div class="table-container">
     {% block table %}
-        <table {% render_attrs table.attrs %}>
+        <table style="border-collapse:collapse" {% render_attrs table.attrs %}>
             {% block table.thead %}
             {% if table.show_header %}
-                <thead {{ table.attrs.thead.as_html }}>
+                <thead class="thead-dark" {{ table.attrs.thead.as_html }}>
                     <tr>
                     {% for column in table.columns %}
-                        <th class = "bg-gradient-dark" {{ column.attrs.th.as_html }}>
+                        <th {{ column.attrs.th.as_html }}>
                             {% if column.orderable %}
-                                <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a>
+                            <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}" style="color: #17a2b8">{{ column.header }}</a>
                             {% else %}
-                                {{ column.header }}
+                                <a style="color: #adadad">{{ column.header }}</a>
                             {% endif %}
                         </th>
                     {% endfor %}
@@ -23,12 +43,37 @@
             {% endblock table.thead %}
             {% block table.tbody %}
                 <tbody {{ table.attrs.tbody.as_html }}>
+                <tr colspan="6" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+				            <td>1</td>
+				            <td>12 Jan 2018</td>
+				            <td>Good</td>
+				            <td>$150.00</td>
+				            <td> - </td>
+				            <td>$150.00</td>
+				        </tr>
+                <tr class="p">
+				            <td colspan="6" class="hiddenRow">
+					            <div class="accordian-body collapse p-4" id="demo1">
+					            	<p>No : <span>1</span></p>
+					            	<p>Date : <span>12 Jan 2018</span> </p>
+					            	<p>Description : <span>Good</span> </p>
+					            	<p>Credit : <span>$150.00</span> </p>
+					            	<p>Debit : <span></span></p>
+					            	<p>Balance : <span>$150.00</span></p>
+					        	</div>
+				        	</td>
+                    </tr>
                 {% for row in table.paginated_rows %}
                     {% block table.tbody.row %}
-                    <tr {{ row.attrs.as_html }}>
+<!--                    <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-1" aria-expanded="false" aria-controls="group-of-rows-1"  {{ row.attrs.as_html }}>-->
+                    <tr colspan="2" data-toggle="collapse" data-target="#demo2" class="accordion-toggle" {{ row.attrs.as_html }}>
                         {% for column, cell in row.items %}
-                            <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
+<!--                            <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>-->
+<!--                            <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>-->
+                            <td >{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
+
                         {% endfor %}
+
                     </tr>
                     {% endblock table.tbody.row %}
                 {% empty %}
@@ -37,8 +82,8 @@
                     <tr><td colspan="{{ table.columns|length }}">{{ table.empty_text }}</td></tr>
                     {% endblock table.tbody.empty_text %}
                     {% endif %}
+
                 {% endfor %}
-                </tbody>
             {% endblock table.tbody %}
             {% block table.tfoot %}
             {% if table.has_footer %}

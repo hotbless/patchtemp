@@ -1,6 +1,7 @@
 {# update/templates/update/update.html #}
 {% load render_table from django_tables2 %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,14 +14,14 @@
     <!--link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" /-->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
     <!-- link rel="stylesheet" type="text/css" href="./main.css" -->
-    <!--style type="text/css">
-        table.paleblue tr.even {
-            background-color: white;
-        }
-        table.paleblue tr.odd {
-            background-color: #EDF3FE;
-        }
-    </style-->
+<!--    <style type="text/css">-->
+<!--        table.paleblue tr.even {-->
+<!--            background-color: white;-->
+<!--        }-->
+<!--        table.paleblue tr.odd {-->
+<!--            background-color: #EDF3FE;-->
+<!--        }-->
+<!--    </style>-->
     <style type="text/css">
         .pagination {
             /*display: inline-block;*/
@@ -96,7 +97,6 @@
             border-color: #ddd;
         }
 
-
     </style>
     body { padding-top: 50px; }
 
@@ -161,10 +161,17 @@
     </div>
 </div>
 
+<form action="" method="post">
+    {% csrf_token %}
+ <input type="text" value="bbb" name="mytextbox" size="10"/>
+ <input type="submit" class="btn btn-info" href="update/quest/" value="Click" name="mybtn">
+</form>
+
 <div class="container-fluid">
     {% render_table table %}
-
 </div>
+
+
 
 
 </body>
