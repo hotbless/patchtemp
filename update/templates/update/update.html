@@ -14,14 +14,14 @@
     <!--link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" /-->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
     <!-- link rel="stylesheet" type="text/css" href="./main.css" -->
-<!--    <style type="text/css">-->
-<!--        table.paleblue tr.even {-->
-<!--            background-color: white;-->
-<!--        }-->
-<!--        table.paleblue tr.odd {-->
-<!--            background-color: #EDF3FE;-->
-<!--        }-->
-<!--    </style>-->
+    <!--    <style type="text/css">-->
+    <!--        table.paleblue tr.even {-->
+    <!--            background-color: white;-->
+    <!--        }-->
+    <!--        table.paleblue tr.odd {-->
+    <!--            background-color: #EDF3FE;-->
+    <!--        }-->
+    <!--    </style>-->
     <style type="text/css">
         .pagination {
             /*display: inline-block;*/
@@ -101,8 +101,6 @@
     body { padding-top: 50px; }
 
 
-
-
 </head>
 <body>
 <!-- Optional JavaScript -->
@@ -115,8 +113,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script>
     $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 
 <div class="container">
@@ -161,34 +159,39 @@
 </div>
 
 
-
-
 <div class="container-fluid">
     <div class="jumbotron">
         <div class="container text-center">
-            <h1>占位</h1>
-            <p>预留位置用来显示host</p>
+            <h1></h1>
+            <p>TODO: 预留位置，解决banner遮挡问题</p>
         </div>
     </div>
 </div>
 
 <div class="container-fluid">
-    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="test tooltip">
-        HOST $ip
-    </button>
+    <form>
+    <div class="form-row col-auto">
+        <div class="col-auto">
+        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="test tooltip">
+            HOST IP
+        </button>
+            </div>
+        <div class="col-auto">
+        <input class="form-control" id="disabledInput" type="text" placeholder="TODO: host ip address" disabled>
+        </div>
+    </div>
+        </form>
 </div>
 
-<form action="" method="post">
-    {% csrf_token %}
- <input type="text" value="bbb" name="mytextbox" size="10"/>
- <input type="submit" class="btn btn-info" href="update/quest/" value="Click" name="mybtn">
-</form>
+<!--<form action="" method="post">-->
+<!--    {% csrf_token %}-->
+<!--    <input type="text" value="bbb" name="mytextbox" size="10"/>-->
+<!--    <input type="submit" class="btn btn-info" href="update/quest/" value="Click" name="mybtn">-->
+<!--</form>-->
 
 <div class="container-fluid">
     {% render_table table %}
 </div>
-
-
 
 
 </body>
