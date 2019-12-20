@@ -33,7 +33,10 @@ urlpatterns = [
     # path("targethost/", TargetHost.as_view()),
     path("targethost/check", TargetHost.as_view({'get': 'chk_host'})),
     path("targethost/query", TargetHost.as_view({'get': 'query_installed'})),
-    path("sshtarget/trialtest", Login)
+    path("sshtarget/trialtest", Login),
+    # path("targethost/host", TargetHost.as_view({'get': 'connect_host'})),
+    # path("targethost/host", TargetHost.as_view({'get': 'connect_host'})),
+    path("targethost/host", TargetHost.as_view({'get': 'connect_host', 'post': 'connect_host'})),
     # path(r'^update/quest/$', SSHTarget.as_view({'post': 'request_page'})),
 
     # path("ssh_target/", include('sshtarget.urls')),

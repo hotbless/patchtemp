@@ -135,6 +135,7 @@ def Login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         return HttpResponse(username)
+        # return Response({"message": "Can't access Target host"}, status=406, 'sshtarget/trialtest.html')
     else:
         return render(request, 'sshtarget/trialtest.html')
 

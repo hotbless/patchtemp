@@ -31,6 +31,11 @@ class SSHTargetButton(viewsets.ViewSet):
                 # return render(request, 'button.html', status=700)
 
 
+class TargetHostInfo(viewsets.ViewSet):
+    def current_host_info(self, request):
+        host_ip = (request.GET.get('host_ip'))
+        return render(request, 'update/update.html', host_ip)
+
 
 # class UpdateInfoListView(ListView):
 class UpdateInfoListView(SingleTableView):
