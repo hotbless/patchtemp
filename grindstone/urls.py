@@ -20,7 +20,7 @@ from installed.views import InstalledListView
 from update.views import UpdateInfoListView
 from sshtarget.views import SSHTarget
 from targethost.views import TargetHost
-from update.views import SSHTargetButton
+from update.views import SSHTargetButton, TargetHostInfo
 from sshtarget.views import Login
 
 urlpatterns = [
@@ -28,6 +28,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("installed/", InstalledListView.as_view()),
     path("update/", UpdateInfoListView.as_view()),
+    # path('update/^?P<host_ip>/$', UpdateInfoListView.as_view(), name='update_info_table'),
+    # path("update/test", TargetHostInfo.as_view({'get': 'current_host_info'}), name='update_info_table'),
+    path("update/test", TargetHostInfo.as_view({'get': 'current_host_info'})),
     path("restry/", include('restry.urls')),
     path("sshtarget/", SSHTarget.as_view({'get': 'chk_host'})),
     # path("targethost/", TargetHost.as_view()),
@@ -37,6 +40,7 @@ urlpatterns = [
     # path("targethost/host", TargetHost.as_view({'get': 'connect_host'})),
     # path("targethost/host", TargetHost.as_view({'get': 'connect_host'})),
     path("targethost/host", TargetHost.as_view({'get': 'connect_host', 'post': 'connect_host'})),
+    #path(r'^update/(?P<host_ip>[^\/]*)/$', TargetHost.connect_host, name='host_ip'),
     # path(r'^update/quest/$', SSHTarget.as_view({'post': 'request_page'})),
 
     # path("ssh_target/", include('sshtarget.urls')),

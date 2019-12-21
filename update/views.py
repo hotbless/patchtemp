@@ -33,8 +33,16 @@ class SSHTargetButton(viewsets.ViewSet):
 
 class TargetHostInfo(viewsets.ViewSet):
     def current_host_info(self, request):
-        host_ip = (request.GET.get('host_ip'))
-        return render(request, 'update/update.html', host_ip)
+        host_ip_var = None
+        if 'host_ip' in request.session:
+            host_ip_var = request.session['host_ip']
+            # del request.session['host_ip']
+        # host_ip = (request.GET.get('host_ip'))
+        if host_ip_var:
+            return render(request, 'update/test.html', {'host_ip': host_ip_var})
+        else:
+            host_ip_var = ''
+            return render(request, 'update/test.html', {'host_ip': host_ip_var})
 
 
 # class UpdateInfoListView(ListView):

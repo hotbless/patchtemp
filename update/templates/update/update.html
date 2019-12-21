@@ -116,6 +116,12 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
+<script>
+    function getFromWeb()
+{
+    var host=document.getElementById('disabledInput').value
+ }
+</script>
 
 <div class="container">
     <div class="row">
@@ -172,16 +178,22 @@
     <form>
     <div class="form-row col-auto">
         <div class="col-auto">
-        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="test tooltip">
-            HOST IP
+        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="当前扫描地址">
+            HOST : {{request.session.op_host_ip}}
         </button>
             </div>
-        <div class="col-auto">
-        <input class="form-control" id="disabledInput" type="text" placeholder="TODO: host ip address" disabled>
-        </div>
+<!--        <div class="col-auto">-->
+<!--            <input class="form-control" id="disabledInput" type="text" placeholder={{request.session.host_ip}} disabled>-->
+<!--        </div>-->
     </div>
         </form>
 </div>
+
+<!--<div>-->
+<!--    -->
+<!--    Your host ip is {{request.session.host_ip}}-->
+
+<!--    </div>-->
 
 <!--<form action="" method="post">-->
 <!--    {% csrf_token %}-->
@@ -190,7 +202,9 @@
 <!--</form>-->
 
 <div class="container-fluid">
+    {% if table %}
     {% render_table table %}
+    {% endif %}
 </div>
 
 

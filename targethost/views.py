@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views import View
+from django.http import HttpResponseRedirect
 
 from fabric import Connection
 from GetConfig import GetConfig
@@ -8,6 +9,7 @@ from DbOp import DbOp
 
 from rest_framework.response import Response
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -15,7 +17,7 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 
 from .models import InstalledInfo
-
+from update.views import UpdateInfoListView, TargetHostInfo
 from installed.views import InstalledListView
 
 # Create your views here.
@@ -178,14 +180,22 @@ class TargetHost(viewsets.ViewSet):
     def connect_host(self, request):
         if request.method == 'POST':
             # self.chk_host(request)
-            host_ip = request.POST.get('host_ip')
+            op_host_ip = request.POST.get('host_ip')
             host_password = request.POST.get('host_password')
-            status = TargetOp().chk_connect_mod(host_ip, host_password)
+            status = TargetOp().chk_connect_mod(op_host_ip, host_password)
             if status is False:
-                return Response({"message": "Can't access Target host " + host_ip}, status=406)
+                return Response({"message": "Can't access Target host " + op_host_ip}, status=406)
             else:
+                # if 'host_ip' in request.session:
+                #     del request.session['host_ip']
                 # response = redirect('/update/')
-                response = redirect('/update/', host_ip)
+                # response = redirect('/update/?p=%s' % host_ip)
+                # response = redirect('update_info_table', host_ip)
+                request.session['op_host_ip'] = op_host_ip
+                #response = redirect()
+                response = redirect('/update/')
+                # table = UpdateInfoListView.as_view()
+                # response = render(request, 'update/update.html', {'host_ip': host_ip, 'table': table})
                 return response
                 # return Response({"message": "Connect Target host success " + host_ip}, status=200)
             # return Response({"message": "Can't access Target host"}, status=406, 'sshtarget/trialtest.html')
