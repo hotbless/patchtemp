@@ -12,6 +12,7 @@ class InstalledInfo(models.Model):
     NAME = models.CharField(primary_key=True, max_length=120, null=False, verbose_name="Package Name")
     VERSION = models.CharField(max_length=120, null=False, verbose_name="Version")
     ARCH = models.CharField(max_length=120, null=False, verbose_name="Arch")
+    IP = models.GenericIPAddressField(max_length=120, null=False, verbose_name="IP")
 
     class Meta:
         db_table = "installed_info"
@@ -22,6 +23,7 @@ class UpdateInfo(models.Model):
     VERSION = models.CharField(max_length=120, null=False, verbose_name="Version")
     ARCH = models.CharField(max_length=120, null=False, verbose_name="Arch")
     REPO = models.CharField(max_length=120, null=False, verbose_name="Repo")
+    IP = models.GenericIPAddressField(max_length=120, null=False, verbose_name="IP")
     # DETAIL = models.CharField(max_length=120, null=False, default='base', verbose_name="Detail")
 
     # 指定database table name
@@ -34,6 +36,7 @@ class UpdateInfoDetails(models.Model):
     VERSION = models.CharField(max_length=120, null=False, verbose_name="Version")
     ARCH = models.CharField(max_length=120, null=False, verbose_name="Arch")
     REPO = models.CharField(max_length=120, null=False, verbose_name="Repo")
+    IP = models.GenericIPAddressField(max_length=120, null=False, verbose_name="IP")
 
     class Meta:
         unique_together = ('NAME', 'VERSION', 'ARCH', 'REPO',)

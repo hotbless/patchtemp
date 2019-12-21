@@ -26,6 +26,7 @@ class DbOp:
             (NAME TEXT PRIMARY KEY NOT NULL,
             VERSION TEXT NOT NULL,
             ARCH TEXT NOT NULL,
+            IP TEXT NOT NULL,
             unique (NAME, VERSION));
             '''
             cur.execute(create_tb_cmd)
@@ -46,6 +47,7 @@ class DbOp:
             VERSION TEXT NOT NULL,
             ARCH TEXT NOT NULL,
             REPO TEXT NOT NULL,
+            IP TEXT NOT NULL,
             unique (NAME, VERSION));
             '''
             cur.execute(create_tb_cmd)
@@ -64,8 +66,8 @@ class DbOp:
             #     'INSERT OR REPLACE INTO INSTALLED (NAME, VERSION, ARCH) VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
             # )
             cur.executemany(
-                'INSERT OR REPLACE INTO INSTALLED_INFO (NAME, VERSION, ARCH) '
-                'VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
+                'INSERT OR REPLACE INTO INSTALLED_INFO (NAME, VERSION, ARCH, IP) '
+                'VALUES (:NAME, :VERSION, :ARCH, :IP)', dict_pkgs
             )
         except Exception as err:
             raise err('Insert table operation failed !')
@@ -82,8 +84,8 @@ class DbOp:
             #     'INSERT OR REPLACE INTO INSTALLED (NAME, VERSION, ARCH) VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
             # )
             cur.executemany(
-                'INSERT OR REPLACE INTO UPDATE_INFO (NAME, VERSION, ARCH, REPO) '
-                'VALUES (:NAME, :VERSION, :ARCH, :REPO)', dict_pkgs
+                'INSERT OR REPLACE INTO UPDATE_INFO (NAME, VERSION, ARCH, REPO, IP) '
+                'VALUES (:NAME, :VERSION, :ARCH, :REPO, :IP)', dict_pkgs
             )
         except Exception as err:
             raise err('Insert table operation failed !')
@@ -100,8 +102,8 @@ class DbOp:
             #     'INSERT OR REPLACE INTO INSTALLED (NAME, VERSION, ARCH) VALUES (:NAME, :VERSION, :ARCH)', dict_pkgs
             # )
             cur.executemany(
-                'INSERT OR REPLACE INTO UPDATE_INFO_DETAILS (NAME, VERSION, ARCH, REPO) '
-                'VALUES (:NAME, :VERSION, :ARCH, :REPO)', dict_pkgs
+                'INSERT OR REPLACE INTO UPDATE_INFO_DETAILS (NAME, VERSION, ARCH, REPO， IP) '
+                'VALUES (:NAME, :VERSION, :ARCH, :REPO, :IP)', dict_pkgs
             )
         except Exception as err:
             raise err('Insert table operation failed !')
