@@ -22,6 +22,7 @@ from sshtarget.views import SSHTarget
 from targethost.views import TargetHost
 from update.views import SSHTargetButton, TargetHostInfo
 from sshtarget.views import Login
+from testdatatable.views import test_datatables2_view
 
 urlpatterns = [
     # path('installed/', include('installed.urls')),
@@ -37,6 +38,7 @@ urlpatterns = [
     path("targethost/check", TargetHost.as_view({'get': 'chk_host'})),
     path("targethost/query", TargetHost.as_view({'get': 'query_installed'})),
     path("sshtarget/trialtest", Login),
+    path("do/do", test_datatables2_view),
     # path("targethost/host", TargetHost.as_view({'get': 'connect_host'})),
     # path("targethost/host", TargetHost.as_view({'get': 'connect_host'})),
     path("targethost/host", TargetHost.as_view({'get': 'connect_host', 'post': 'connect_host'})),

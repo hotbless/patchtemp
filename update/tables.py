@@ -37,12 +37,14 @@ class UpdateTable(tables.Table):
         self.counter = itertools.count()
 
     # age = tables.Column(attrs={"tf": {"bgcolor": "red"}})
+    TIME = tables.DateTimeColumn(format='Y-m-d， h:i:s', orderable=False)
     warning = tables.Column(attrs={"td": {"class": "table-danger"}})
     info = tables.Column(attrs={"tf": {"class": "bg-danger"}})
 
+
     class Meta:
         # attrs = {'class': 'paleblue'}
-        attrs = {'class': 'table table-striped table-hover'}
+        attrs = {'class': 'table table-striped table-hover', 'id': 'hahaha'}
         # attrs = {"th": "thread-dark"}
 
         model = UpdateInfo
@@ -54,6 +56,7 @@ class UpdateTable(tables.Table):
 
     # if record.REPO != 'base':
     Detail = CustomTemplateColumnGetName(template_name="update/detail.html", orderable=False)
+
 
     # Collapse = tables.TemplateColumn(template_name="update/collapse.html", orderable=False)
     # def render_repo(self, value, record):

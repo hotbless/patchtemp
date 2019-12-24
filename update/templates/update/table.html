@@ -1,5 +1,6 @@
 {% load django_tables2 %}
 {% load i18n %}
+{% load static %}
 {% block table-wrapper %}
 
 <style type="text/css">
@@ -7,6 +8,14 @@
     padding: 0 !important;
 }
 </style>
+
+
+
+
+<!--<script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"/>-->
+<!--<script src="{% static 'js/popper.min.js' %}"/>-->
+<!--<script src="{% static 'js/bootstrap.min.js' %}"/>-->
+
 
 <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
 <!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
@@ -27,7 +36,7 @@
 
 <div class="table-container">
     {% block table %}
-        <table style="border-collapse:collapse" {% render_attrs table.attrs %}>
+        <table style="border-collapse:collapse" {% render_attrs table.attrs %} id="hahaha">
             {% block table.thead %}
             {% if table.show_header %}
                 <thead class="thead-dark" {{ table.attrs.thead.as_html }}>
@@ -47,7 +56,8 @@
             {% endblock table.thead %}
             {% block table.tbody %}
                 <tbody {{ table.attrs.tbody.as_html }}>
-                <tr colspan="6" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+<!--                <tr colspan="6" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">-->
+                    <tr colspan="6" data-toggle="collapse" data-target="#demo1" class="clickable">
 				            <td>1</td>
 				            <td>12 Jan 2018</td>
 				            <td>Good</td>
@@ -57,7 +67,8 @@
 				        </tr>
                 <tr class="p">
 				            <td colspan="6" class="hiddenRow">
-					            <div class="accordian-body collapse p-4" id="demo1">
+<!--					            <div class="accordian-body collapse p-4" id="demo1">-->
+                                    <div class="no-border collapse p-4" id="demo1">
 					            	<p>No : <span>1</span></p>
 					            	<p>Date : <span>12 Jan 2018</span> </p>
 					            	<p>Description : <span>Good</span> </p>
@@ -70,16 +81,17 @@
                 {% for row in table.paginated_rows %}
                     {% block table.tbody.row %}
 <!--                    <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-1" aria-expanded="false" aria-controls="group-of-rows-1"  {{ row.attrs.as_html }}>-->
-                    <tr colspan="2" data-toggle="collapse" data-target="#demo2" class="accordion-toggle" {{ row.attrs.as_html }}>
-                        {% for column, cell in row.items %}
+                    <tr colspan="6" data-toggle="collapse" data-target="#demo1" class="accordion-toggle" {{ row.attrs.as_html }}>
+<!--                        {% for column, cell in row.items %}-->
 <!--                            <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>-->
 <!--                            <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>-->
                             <td >{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
 
-                        {% endfor %}
+<!--                        {% endfor %}-->
 
                     </tr>
                     {% endblock table.tbody.row %}
+
                 {% empty %}
                     {% if table.empty_text %}
                     {% block table.tbody.empty_text %}
@@ -144,4 +156,12 @@
     {% endblock pagination %}
 </div>
 {% endblock table-wrapper %}
+
+<!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
+
+<script>
+    $(document).ready( function () {
+    $('#hahaha').DataTable();
+    } );
+</script>
 

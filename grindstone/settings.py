@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'restry.apps.RestryConfig',
     'sshtarget.apps.SshtargetConfig',
     'targethost.apps.TargethostConfig',
+    'testdatatable.apps.TestdatatableConfig',
     "django_tables2",
     "bootstrap4",
     "rest_framework",
@@ -117,9 +118,12 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+DATETIME_FORMAT = ['%Y-%m-%d %H:%M:%S', ]
+DATETIME_INPUT_FORMATS = ['%Y-%m-%d %H:%M:%S', ]
 
-USE_TZ = True
+USE_L10N = False
+
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

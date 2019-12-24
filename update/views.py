@@ -57,3 +57,5 @@ class UpdateInfoListView(SingleTableView):
 
 
 
+
+

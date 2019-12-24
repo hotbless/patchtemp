@@ -2,6 +2,9 @@ from fabric import Connection
 from GetConfig import GetConfig
 from DbOp import DbOp
 
+import time
+import datetime
+
 
 class TargetOp:
     def __init__(self, host_ip, host_password):
@@ -85,6 +88,7 @@ class TargetOp:
                         list_info.remove(each)
             list_info = [each for each in list_info if each != '']
             if list_info:
+                current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 for index, each in enumerate(list_info):
                     if each:
                         dict_each = dict()
@@ -93,6 +97,7 @@ class TargetOp:
                             'NAME': list_each[0],
                             'VERSION': list_each[1],
                             'ARCH': list_each[2],
+                            'TIME': current_time,
                             'IP': self.target_host_ip
                         }
                         # print(dict_each)
@@ -127,6 +132,7 @@ class TargetOp:
                     list_info.remove(each)
         list_info = [each for each in list_info if each != '']
         if list_info:
+            current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             for index, each in enumerate(list_info):
                 if each:
                     # print(each)
@@ -137,6 +143,7 @@ class TargetOp:
                         'VERSION': list_each[1],
                         'ARCH': list_each[2],
                         'REPO': list_each[3],
+                        'TIME': current_time,
                         'IP': self.target_host_ip
                     }
                     # if dict_each['REPO'] != "base":
@@ -171,6 +178,7 @@ class TargetOp:
                     list_info.remove(each)
         list_info = [each for each in list_info if each != '']
         if list_info:
+            current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             for index, each in enumerate(list_info):
                 if each:
                     # print(each)
@@ -181,6 +189,7 @@ class TargetOp:
                         'VERSION': list_each[1],
                         'ARCH': list_each[2],
                         'REPO': list_each[3],
+                        'TIME': current_time,
                         'IP': self.target_host_ip
                     }
                     # if dict_each['REPO'] != "base":
