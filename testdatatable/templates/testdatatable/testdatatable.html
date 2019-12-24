@@ -14,9 +14,44 @@
 
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<!--    <script type = "text/javascript">-->
+<!--    $(document).ready(function(){-->
+<!--        $('#updateinfo').DataTable();-->
+<!--    });-->
+<!--    </script>-->
     <script type = "text/javascript">
     $(document).ready(function(){
-        $('#updateinfo').DataTable();
+        // Register date formats to allow DataTables sorting of the dates
+        $.fn.dataTable.moment( 'M/D/YYYY' );
+        $.fn.dataTable.moment( 'dddd D MMMM YYYY' );
+
+        editor = new $.fn.dataTable.Editor( {
+            table: '#updateinfo',
+            fields: [ {
+                label:  'SCAN TIME:',
+                name:   'TIME',
+                type:   'datetime',
+                def:    function () { return new Date(); },
+                format: 'YYYY-MM-DD HH:MM:SS',
+                fieldInfo: 'Verbose date format',
+                keyInput: false
+            }]
+
+        } );
+
+
+        $('#updateinfo').DataTable(
+            {
+                dom: 'Bfrtip',
+        columns: [
+            { data: 'first_name' },
+            { data: 'last_name' },
+            { data: 'updated_date' },
+            { data: 'registered_date' }
+        ],
+        select: true,
+            }
+        );
     });
     </script>
 
@@ -30,6 +65,7 @@
             <th>VERSION</th>
             <th>ARCH</th>
             <th>REPO</th>
+            <th  orderable=False>SCAN TIME</th>
         </tr>
         </thead>
         <tbody>
@@ -39,6 +75,7 @@
             <td>{{ updateinfo.VERSION }}</td>
             <td>{{ updateinfo.ARCH }}</td>
             <td>{{ updateinfo.REPO }}</td>
+            <td>{{ updateinfo.TIME }}</td>
         </tr>
         {% endfor %}
         </tbody>
